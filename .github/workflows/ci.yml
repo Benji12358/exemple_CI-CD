@@ -20,13 +20,12 @@ jobs:
           cache: true
           auth-host: prefix.dev
           auth-token: ${{ secrets.PREFIX_DEV_TOKEN }}
-      - run: |
-          pixi add cppcheck
-          pixi add cmake
-          pixi shell
-          cmake -S . -B .build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_EXAMPLES=ON
-          cppcheck --enable=all --disable=information -q --project=.build/compile_commands.json --suppressions-list=    .cppcheck 2> cppcheck_err.txt
-      - shell: pixi run bash -e {0}
+      - run: pixi add cppcheck
+      - run: pixi add cmake
+      - run: pixi shell
+      - run: cmake -S . -B .build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_EXAMPLES=ON
+      - run: cppcheck --enable=all --disable=information -q --project=.build/compile_commands.json --suppressions-list=    .cppcheck 2> cppcheck_err.txt
+#      - shell: pixi run bash -e {0}
 
   tests:
     needs: pre-commit
