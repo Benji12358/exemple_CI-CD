@@ -24,9 +24,9 @@ jobs:
          pixi add cppcheck
          pixi add cmake
       - run: |
-         cmake -S . -B .build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_EXAMPLES=ON
-         cppcheck --enable=all --disable=information -q --project=.build/compile_commands.json --suppressions-list=.cppcheck 2> cppcheck_err.txt
-      - shell: pixi run bash -e {0}
+          cmake -S . -B .build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_EXAMPLES=ON
+          cppcheck --enable=all --disable=information -q --project=.build/compile_commands.json --suppressions-list=.cppcheck 2> cppcheck_err.txt
+        shell: pixi run bash -e {0}
 
   tests:
     needs: pre-commit
