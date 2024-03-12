@@ -21,6 +21,9 @@ jobs:
           auth-host: prefix.dev
           auth-token: ${{ secrets.PREFIX_DEV_TOKEN }}
       - run: |
+          pixi add cmake
+          pixi add cppcheck
+      - run: |
           cmake -S . -B .build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_EXAMPLES=ON
           cppcheck --enable=all --disable=information -q --project=.build/compile_commands.json --suppressions-list=.cppcheck 2> cppcheck_err.txt
         shell: pixi run bash -e {0}
